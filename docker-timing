@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+set -e
+
+file=/docker-timing.log
+
+if [ -f $file ]; then
+  echo "$(($(date +%s)-$(head -n 1 $file))) ${@:-stage}" >> $file
+  echo "Seconds since last stage: $(tail -n 1 $file)"
+else
+  date +%s > $file
+fi
